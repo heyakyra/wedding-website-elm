@@ -1,0 +1,18 @@
+image: node:18
+
+pages:
+  cache:
+    paths:
+    - node_modules
+  script:
+  - npm config set prefix ~/.local
+  - export PATH=~/.local/bin:$PATH
+  - npm install -g elm@0.19.1 elm-watch@latest
+  - elm-watch make --optimize
+  - mv build public
+  - cp -r src/static/* public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - main

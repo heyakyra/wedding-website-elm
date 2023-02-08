@@ -1,0 +1,512 @@
+/*
+  elm-hot creates an additional div wrapper around the app to make HMR possible.
+  This could break styling in development mode if you are using Elm UI.
+
+  More context in the issue:
+    https://github.com/halfzebra/create-elm-app/issues/320
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond&family=Raleway:wght@300&family=Sorts+Mill+Goudy&family=Source+Serif+Pro:ital,wght@0,200;0,300;1,200;1,300&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css");
+
+[data-elm-hot="true"] {
+  height: inherit;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+p {
+  font-family: "EB Garamond", serif;
+  font-size: 1.4rem;
+}
+
+body {
+  font-family: "Raleway", serif;
+  font-weight: normal;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+  color: #111111;
+}
+
+img {
+  max-width: 100%;
+}
+
+header,
+nav,
+section,
+footer {
+  width: 100%;
+  box-sizing: border-box;
+  background-size: cover;
+  background-position: center;
+  padding: 2rem calc((100% - 60rem) / 2);
+  background-color: white;
+}
+
+.title {
+  font-weight: 300;
+  font-family: "Source Serif Pro", "Cardo", "EB Garamond", "Sorts Mill Goudy",
+    serif;
+  max-width: 38rem;
+  margin: auto;
+  text-transform: none;
+  font-size: 8.88rem;
+  font-style: italic;
+  font-kerning: normal;
+}
+
+.first {
+  width: 100%;
+  display: block;
+  text-align: left;
+}
+.ampersand {
+  font-family: "Sorts Mill Goudy", serif;
+  width: 100%;
+  margin: -2rem 0 -3rem -1rem;
+  display: block;
+  text-align: center;
+  font-size: 5rem;
+}
+.second {
+  width: 100%;
+  display: block;
+  text-align: right;
+}
+
+.when {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+header > ul,
+section > ul,
+footer > ul,
+nav > ul {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+#affirmation {
+  padding: 4rem calc((100% - 50rem) / 2);
+}
+
+header > ul li,
+section > ul li,
+footer > ul li,
+nav li {
+  display: inline;
+  text-decoration: none;
+  margin: 1rem auto;
+}
+
+nav li a,
+footer li a {
+  padding: 0 0.25rem;
+}
+
+#questions ul li {
+  margin: 1rem 0;
+}
+
+#affirmation .prose,
+#quote .prose {
+  columns: 3 auto;
+  padding: 0 0 0 2rem;
+}
+#affirmation p,
+#quote p {
+  font-size: 1rem;
+  margin-block-start: 0;
+}
+#affirmation span,
+#quote span {
+  display: block;
+}
+
+#agenda h2, #affirmation .author {
+  text-align: right;
+}
+
+#agenda ul {
+  display: block;
+}
+
+#agenda li {
+  display: block;
+  margin: 0;
+}
+
+#agenda strong {
+  margin-left: 2em;
+  line-height: 2em;
+}
+
+#agenda em {
+  display: table;
+  margin-left: auto;
+}
+
+#logistics li {
+  margin: 1rem;
+}
+
+header {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.5)),
+    url("images/headerBg.jpg");
+  color: #dddddd;
+}
+
+h1,
+h2 {
+  text-transform: uppercase;
+  padding: 0.3em 0;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 1em;
+}
+
+h2 {
+  border-bottom: 2px solid #ffffff;
+  font-size: 2.2em;
+}
+
+header p {
+  font-size: 1.6rem;
+  line-height: 2em;
+  margin-bottom: 2em;
+}
+
+body nav {
+  position: sticky;
+  padding-top: 0;
+  padding-bottom: 0;
+  top: 0;
+  z-index: 1;
+}
+
+nav a,
+nav a:hover,
+nav a:active {
+  display: inline-block;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.dark {
+  background-color: #000000;
+  color: #dddddd;
+}
+
+#about {
+  min-height: 36em;
+  line-height: 2em;
+}
+
+#about img {
+  float: right;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 50%;
+  margin: -4rem 0 2rem 2rem;
+}
+
+#rsvp button {
+  color: black;
+  margin: 3rem auto;
+  cursor: pointer;
+}
+
+button {
+  --offset: 10px;
+  --border-size: 2px;
+
+  margin: auto;
+  display: block;
+  position: relative;
+  padding: 0.8rem 0.4rem;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.25rem;
+  outline: none;
+  font-weight: bold;
+  border-radius: 0;
+  box-shadow: inset 0 0 0 var(--border-size) currentcolor;
+  transition: background 0.8s ease;
+  min-width: 8rem;
+  margin: 0.2rem 1rem;
+}
+
+#home a {
+  text-decoration: none;
+}
+
+button:hover {
+  background: rgba(100, 0, 0, 0.03);
+}
+
+.button__horizontal,
+.button__vertical {
+  position: absolute;
+  top: var(--horizontal-offset, 0);
+  right: var(--vertical-offset, 0);
+  bottom: var(--horizontal-offset, 0);
+  left: var(--vertical-offset, 0);
+  transition: transform 0.8s ease;
+  will-change: transform;
+}
+.button__horizontal::before,
+.button__vertical::before {
+  content: "";
+  position: absolute;
+  border: inherit;
+}
+
+.button__horizontal {
+  --offset: 10px;
+  --border-size: 2px;
+  --vertical-offset: calc(var(--offset) * -1);
+  border-top: var(--border-size) solid currentcolor;
+  border-bottom: var(--border-size) solid currentcolor;
+}
+.button__horizontal::before {
+  --offset: 10px;
+  --border-size: 2px;
+  --vertical-offset: calc(var(--offset) * -1);
+  top: calc(var(--vertical-offset) - var(--border-size));
+  bottom: calc(var(--vertical-offset) - var(--border-size));
+  left: calc(var(--vertical-offset) * -1);
+  right: calc(var(--vertical-offset) * -1);
+}
+
+button:hover .button__horizontal {
+  transform: scaleX(0);
+}
+button:hover .button__vertical {
+  transform: scaleY(0);
+}
+
+.button__vertical {
+  --offset: 10px;
+  --border-size: 2px;
+  --horizontal-offset: calc(var(--offset) * -1);
+  border-left: var(--border-size) solid currentcolor;
+  border-right: var(--border-size) solid currentcolor;
+}
+.button__vertical::before {
+  --offset: 10px;
+  --border-size: 2px;
+  --horizontal-offset: calc(var(--offset) * -1);
+  top: calc(var(--horizontal-offset) * -1);
+  bottom: calc(var(--horizontal-offset) * -1);
+  left: calc(var(--horizontal-offset) - var(--border-size));
+  right: calc(var(--horizontal-offset) - var(--border-size));
+}
+
+.dark a {
+  color: #dddddd;
+  text-decoration: underline;
+}
+
+#speakers h1,
+#speakers h2 {
+  text-align: center;
+}
+
+#speakers img {
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  object-fit: cover;
+  float: right;
+}
+
+#rsvp {
+  text-align: center;
+}
+
+#rsvp img {
+  max-height: 12em;
+  max-width: 24em;
+}
+
+#quote {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url("images/quoteBg.jpg");
+  background-repeat: repeat;
+  background-position: center;
+  background-size: cover;
+  padding-bottom: 6em;
+  padding-top: 6em;
+}
+
+#agenda {
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+}
+
+#agenda::before {
+  content: ' ';
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: url("images/agendaBg.jpg") no-repeat center center;
+  background-size: cover;
+  background-color: black;
+  will-change: transform;
+  z-index: -1;
+}
+
+#attend h2 {
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 6rem;
+}
+
+#agenda h3 {
+  margin-bottom: 0;
+}
+
+#agenda p,
+#agenda p strong {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a * {
+  cursor: pointer;
+}
+
+iframe {
+  width: 100%;
+  height: 40vh;
+  margin: 1em 0 0 0;
+  border: none;
+}
+
+a .color {
+  font-size: 1.6rem;
+  line-height: 1.8rem;
+}
+a .color1 {
+  color: #0e0a1b;
+}
+a .color2 {
+  color: #0e342b;
+}
+a .color3 {
+  color: #008f7c;
+}
+a .color4 {
+  color: #d8e2d1;
+}
+a .color5 {
+  color: #827a90;
+}
+a .color6 {
+  color: #931239;
+}
+a .color7 {
+  color: #a0804c;
+}
+a .color8 {
+  color: #ff9e37;
+}
+a .color9 {
+  color: #b32020;
+}
+
+@media only screen and (max-width: 62rem) {
+  header,
+  section,
+  footer,
+  #affirmation {
+    padding: 2rem calc((100% - 37.5rem) / 2);
+  }
+  #about img {
+    height: 16em;
+    width: 16em;
+  }
+  #affirmation .prose,
+  #quote .prose {
+    columns: 2 auto;
+  }
+  #speakers img {
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+  }
+  .title {
+    max-width: 26rem;
+    font-size: 6rem;
+  }
+  .ampersand {
+    display: block;
+    font-size: 3.2rem;
+    margin: -2rem 0 -2rem -0.6rem;
+  }
+  a .color {
+    font-size: 1rem;
+    line-height: 0rem;
+  }
+}
+
+@media only screen and (max-width: 42rem) {
+  header,
+  section,
+  footer,
+  #affirmation {
+    padding: 2rem calc((100% - 20rem) / 2);
+  }
+  #about img {
+    float: right;
+    height: 8rem;
+    width: 8rem;
+    margin: -1rem 0 0rem 0rem;
+  }
+
+  #agenda {
+    background-repeat: no-repeat;
+    background-size: 200%;
+  }
+
+  #affirmation .prose,
+  #quote .prose {
+    columns: 1 auto;
+  }
+  .title {
+    max-width: 18rem;
+    font-size: 4.4rem;
+  }
+  .ampersand {
+    display: block;
+    font-size: 2.6rem;
+    margin: -1rem 0rem -1.4rem -1rem;
+  }
+  a .color {
+    font-size: 0.8rem;
+    line-height: 0rem;
+  }
+}

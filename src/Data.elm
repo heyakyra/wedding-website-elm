@@ -39,65 +39,28 @@ aboutInfo =
 
 quoteText : List (List String)
 quoteText =
-    [ [ "I believe in living."
-      , "I believe in the spectrum"
-      , "of Beta days and Gamma people."
-      , "I believe in sunshine."
-      , "In windmills and waterfalls,"
-      , "tricycles and rocking chairs."
-      , "And i believe that seeds grow into sprouts."
-      , "And sprouts grow into trees."
-      , "I believe in the magic of the hands."
-      , "And in the wisdom of the eyes."
-      , "I believe in rain and tears."
-      , "And in the blood of infinity."
-      ]
-    , [ "I believe in life."
-      , "And i have seen the death parade"
-      , "march through the torso of the earth,"
-      , "sculpting mud bodies in its path."
-      , "I have seen the destruction of the daylight,"
-      , "and seen bloodthirsty maggots"
-      , "prayed to and saluted."
-      ]
-    , [ "I have seen the kind become the blind"
-      , "and the blind become the bind"
-      , "in one easy lesson."
-      , "I have walked on cut glass."
-      , "I have eaten crow and blunder bread"
-      , "and breathed the stench of indifference."
-      ]
-    , [ "I have been locked by the lawless."
-      , "Handcuffed by the haters."
-      , "Gagged by the greedy."
-      , "And, if i know anything at all,"
-      , "it's that a wall is just a wall"
-      , "and nothing more at all."
-      , "It can be broken down."
-      ]
-    , [ "I believe in living."
-      , "I believe in birth."
-      , "I believe in the sweat of love"
-      , "and in the fire of truth."
-      ]
-    , [ "And i believe that a lost ship,"
-      , "steered by tired, seasick sailors,"
-      , "can still be guided home"
-      , "to port."
+    [ [ "in love"
+      , "there are no closed doors"
+      , "each threshold"
+      , "an invitation"
+      , "to cross"
+      , "take hold"
+      , "take heart"
+      , "and enter here"
+      , "at this point"
+      , "where truth"
+      , "was once denied"
       ]
     ]
 
 
-affirmation : { quote : String, author : String }
+affirmation : { quote : List String, author : String }
 affirmation =
     { quote =
-        "“You meet a new person, you go with him,” Kid mused, “and "
-            ++ "suddenly you get a whole new city.” He'd offered it as a "
-            ++ "small and oblique compliment. Pepper only glanced at him, "
-            ++ "curiously. “You go down new streets, you see houses you "
-            ++ "never saw before, pass places you didn't even know were "
-            ++ "there. Everything changes.”"
-    , author = "Samuel R. Delany, Dhalgren"
+        [ "Let this be my summertime"
+        , "Of azure sky and rolling sea.."
+        ]
+    , author = "James Baldwin, Paradise"
     }
 
 

@@ -154,7 +154,13 @@ affirmationSection : Html Msg
 affirmationSection =
     section [ id "affirmation" ]
         -- [ h2 [] [ text "Affirmation" ]
-        [ div [ class "prose" ] [ p [] [ span [] [ text affirmation.quote ] ] ]
+        [ div [ class "quote"]
+            [ p []
+                (List.map
+                    (\line -> span [] [ text line ])
+                    affirmation.quote
+                )
+            ]
         , div [ class "author" ] [ p [] [ text ("- " ++ affirmation.author) ] ]
         ]
 

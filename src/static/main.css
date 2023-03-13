@@ -118,10 +118,14 @@ footer li a {
   margin: 1rem 0;
 }
 
-#affirmation .prose,
 #quote .prose {
   columns: 3 auto;
   padding: 0 0 0 2rem;
+}
+#affirmation div {
+  margin: auto;
+  text-align: center;
+  max-width: 20rem;
 }
 #affirmation p,
 #quote p {
@@ -135,6 +139,7 @@ footer li a {
 
 #agenda h2, #affirmation .author {
   text-align: right;
+  max-width: 20rem;
 }
 
 #agenda ul {
@@ -346,7 +351,7 @@ button:hover .button__vertical {
 }
 
 #quote {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
     url("images/quoteBg.jpg");
   background-repeat: repeat;
   background-position: center;
@@ -492,7 +497,6 @@ a .color9 {
     background-size: 200%;
   }
 
-  #affirmation .prose,
   #quote .prose {
     columns: 1 auto;
   }

@@ -96,10 +96,6 @@ nav > ul {
   padding: 0;
 }
 
-#affirmation {
-  padding: 4rem calc((100% - 50rem) / 2);
-}
-
 header > ul li,
 section > ul li,
 footer > ul li,
@@ -122,22 +118,39 @@ footer li a {
   columns: 3 auto;
   padding: 0 0 0 2rem;
 }
-#affirmation div {
+#countdown ul {
   margin: auto;
   text-align: center;
-  max-width: 20rem;
 }
-#affirmation p,
+#countdown li {
+  display: inline-block;
+  font-size: 1.2rem;
+  list-style-type: none;
+  padding: 1em;
+  text-transform: uppercase;
+}
+#countdown li span {
+  display: block;
+  font-size: 2.8rem;
+}
+.emoji {
+  display: none;
+  padding: 1rem;
+}
+
+.emoji span {
+  font-size: 4rem;
+  padding: 0 .5rem;
+}
 #quote p {
   font-size: 1rem;
   margin-block-start: 0;
 }
-#affirmation span,
 #quote span {
   display: block;
 }
 
-#agenda h2, #affirmation .author {
+#agenda h2 {
   text-align: right;
   max-width: 20rem;
 }
@@ -446,15 +459,13 @@ a .color9 {
 @media only screen and (max-width: 62rem) {
   header,
   section,
-  footer,
-  #affirmation {
+  footer {
     padding: 2rem calc((100% - 37.5rem) / 2);
   }
   #about img {
     height: 16em;
     width: 16em;
   }
-  #affirmation .prose,
   #quote .prose {
     columns: 2 auto;
   }
@@ -481,8 +492,7 @@ a .color9 {
 @media only screen and (max-width: 42rem) {
   header,
   section,
-  footer,
-  #affirmation {
+  footer {
     padding: 2rem calc((100% - 20rem) / 2);
   }
   #about img {

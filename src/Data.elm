@@ -1,5 +1,10 @@
 module Data exposing (..)
 
+import Time exposing (Zone)
+import TimeZone exposing (america__new_york)
+
+
+
 ---- HEADING ----
 
 
@@ -25,10 +30,15 @@ geoLocation =
 ---- MAIN ----
 
 
-aboutInfo : { whenHeading : String, when : String, imgSrc : String, imgAlt : String, registryUrl : String, rsvpUrl : String, contactEmail : String }
+type alias DateTime =
+    { zone : Zone, year : Int, month : Int, day : Int, hour : Int, minute : Int }
+
+
+aboutInfo : { whenHeading : String, when : String, dateTime : DateTime, imgSrc : String, imgAlt : String, registryUrl : String, rsvpUrl : String, contactEmail : String }
 aboutInfo =
     { whenHeading = "We hope you will join us in Cambridge, Massachusetts"
     , when = "July 15ᵗʰ, 2024"
+    , dateTime = { zone = america__new_york (), year = 2024, month = 7, day = 15, hour = 16, minute = 30 }
     , imgSrc = "images/aboutBg.jpg"
     , imgAlt = "Multicultural Arts Center Logo"
     , registryUrl = "https://www.usworker.coop/shopcoop/"
@@ -52,16 +62,6 @@ quoteText =
       , "was once denied"
       ]
     ]
-
-
-affirmation : { quote : List String, author : String }
-affirmation =
-    { quote =
-        [ "Let this be my summertime"
-        , "Of azure sky and rolling sea.."
-        ]
-    , author = "James Baldwin, Paradise"
-    }
 
 
 type alias Session =

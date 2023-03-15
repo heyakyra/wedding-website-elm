@@ -1,10 +1,15 @@
 module Main exposing (..)
 
 import Browser exposing (Document)
+import Calendar
 import Data exposing (..)
+import Date
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Entity as Entity
+import Task
+import Time exposing (Posix, Zone, here, millisToPosix, now, utc)
+import Time.Extra as Time
 
 
 
@@ -12,12 +17,21 @@ import Html.Entity as Entity
 
 
 type alias Model =
-    {}
+    { here : Zone
+    , now : Posix
+    }
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( {}, Cmd.none )
+init : () -> ( Model, Cmd Msg )
+init _ =
+    ( Model utc (millisToPosix 0)
+    , Task.perform Initialize hereAndNow
+    )
+
+
+hereAndNow : Task.Task Never { here : Zone, now : Posix }
+hereAndNow =
+    Task.map2 (\z t -> { here = z, now = t }) here now
 
 
 
@@ -25,12 +39,14 @@ init =
 
 
 type Msg
-    = NoOp
+    = Initialize { here : Zone, now : Posix }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    ( model, Cmd.none )
+update msg _ =
+    case msg of
+        Initialize newModel ->
+            ( newModel, Cmd.none )
 
 
 
@@ -150,18 +166,116 @@ stanza lines =
         )
 
 
-affirmationSection : Html Msg
-affirmationSection =
-    section [ id "affirmation" ]
-        -- [ h2 [] [ text "Affirmation" ]
-        [ div [ class "quote"]
-            [ p []
-                (List.map
-                    (\line -> span [] [ text line ])
-                    affirmation.quote
-                )
-            ]
-        , div [ class "author" ] [ p [] [ text ("- " ++ affirmation.author) ] ]
+type alias Countdown =
+    { months : Int
+    , weeks : Int
+    , days : Int
+    , hours : Int
+    , minutes : Int
+    }
+
+
+bigDayToPosix : DateTime -> Zone -> Posix
+bigDayToPosix bigDay tz =
+    Time.partsToPosix
+        tz
+        (Time.Parts bigDay.year (Date.numberToMonth bigDay.month) bigDay.day bigDay.hour bigDay.minute 0 0)
+
+
+monthsRemaining : DateTime -> Posix -> Zone -> Int
+monthsRemaining bigDay currentTime tz =
+    Time.diff Time.Month tz currentTime (bigDayToPosix bigDay tz)
+
+
+weeksRemaining : DateTime -> Posix -> Int -> Zone -> Int
+weeksRemaining bigDay currentTime monthsLeft tz =
+    Time.diff
+        Time.Week
+        tz
+        currentTime
+        (bigDayToPosix { bigDay | month = bigDay.month - monthsLeft } tz)
+
+
+daysRemaining : DateTime -> Posix -> Int -> Int -> Zone -> Int
+daysRemaining bigDay currentTime monthsLeft weeksLeft tz =
+    let
+        subtractedDays =
+            weeksLeft * 7
+
+        startingMonthNumber =
+            bigDay.month - monthsLeft
+
+        startingMonth =
+            Date.numberToMonth startingMonthNumber
+
+        startingMonthDate =
+            Calendar.fromRawParts { year = bigDay.year, month = startingMonth, day = 15 }
+
+        lastDayOfMonth =
+            case startingMonthDate of
+                Just date ->
+                    Calendar.lastDayOf date
+
+                Nothing ->
+                    31
+
+        month =
+            if subtractedDays > bigDay.day then
+                startingMonth
+
+            else
+                Date.numberToMonth (startingMonthNumber - 1)
+
+        day =
+            if subtractedDays > bigDay.day then
+                lastDayOfMonth - (subtractedDays - bigDay.day)
+
+            else
+                subtractedDays - bigDay.day
+    in
+    Time.diff
+        Time.Day
+        tz
+        currentTime
+        (bigDayToPosix
+            { bigDay | month = bigDay.month - monthsLeft, day = bigDay.day - weeksLeft * 7 }
+            tz
+        )
+
+
+timeLeft : DateTime -> Posix -> Zone -> Countdown
+timeLeft bigDay currentTime tz =
+    let
+        monthsLeft =
+            monthsRemaining bigDay currentTime tz
+
+        weeksLeft =
+            weeksRemaining bigDay currentTime monthsLeft tz
+
+        daysLeft =
+            daysRemaining bigDay currentTime monthsLeft weeksLeft tz
+    in
+    Countdown
+        monthsLeft
+        weeksLeft
+        daysLeft
+        0
+        0
+
+
+countdownSection : Model -> Html Msg
+countdownSection model =
+    let
+        countdown =
+            timeLeft aboutInfo.dateTime model.now model.here
+    in
+    section [ id "countdown" ]
+        [ h2 [] [ text "Countdown" ]
+        , ul []
+           [ li [] [ span [] [ text (String.fromInt countdown.months) ], text "Months" ]
+           , li [] [ span [] [ text (String.fromInt countdown.weeks) ], text "Weeks" ]
+           , li [] [ span [] [ text (String.fromInt countdown.days) ], text "Days" ]
+           ]
         ]
 
 
@@ -353,7 +467,7 @@ view model =
             [ aboutSection
             , rsvpSection
             , agendaSection
-            , affirmationSection
+            , countdownSection model
             , attendSection
             , quoteSection
             , questionsSection
@@ -371,7 +485,7 @@ main : Program () Model Msg
 main =
     Browser.document
         { view = view
-        , init = \_ -> init
+        , init = init
         , update = update
         , subscriptions = always Sub.none
         }
